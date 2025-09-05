@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SENSEI iA Studio - Plataforma de Contenido eLearning con IA</title>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<!-- Remix Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+
+<style>
+    :root {
+    --bs-primary: #0A2463;
+    --bs-secondary: #1a1c22;
+    }
+
+    .btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: #063052;
+    --bs-btn-hover-border-color: #063052;
+    }
+
+    .btn-outline-secondary {
+    --bs-btn-color: var(--bs-secondary);
+    --bs-btn-border-color: var(--bs-secondary);
+    --bs-btn-hover-bg: var(--bs-secondary);
+    --bs-btn-hover-border-color: var(--bs-secondary);
+    }
+
+    .text-primary {
+    color: var(--bs-primary) !important;
+    }
+
+    .text-secondary {
+    color: var(--bs-secondary) !important;
+    }
+
+    .bg-primary {
+    background-color: var(--bs-primary) !important;
+    }
+
+    .bg-secondary {
+    background-color: var(--bs-secondary) !important;
+    }
+
+    .hero-section {
+    background-image: url('https://static.readdy.ai/image/91971dd835f8b848ead56f32d969975d/d3052d78479a99a20d12547f0e31b5a5.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    position: relative;
+    }
+
+    .hero-overlay {
+    background-color: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    inset: 0;
+    }
+
+    .icon-bg {
+    background-color: rgba(10, 36, 99, 0.1);
+    }
+
+    .card-hover {
+    transition: box-shadow 0.2s ease;
+    }
+
+    .card-hover:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .btn-rounded {
+    border-radius: 8px;
+    }
+
+    .form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(10, 36, 99, 0.25);
+    }
+
+    #char-count {
+    color: #6c757d;
+    }
+</style>
+</head>
+
+<body>
+<!-- Header -->
+<header class="bg-white shadow-sm border-bottom">
+  <div class="container">
+    <div class="row align-items-center py-2">
+      <div class="col-auto">
+        <img src="https://static.readdy.ai/image/91971dd835f8b848ead56f32d969975d/f0928672ccdd1eda957b155defc5fa02.png" alt="SENSEI iA Studio" class="img-fluid" style="height: 64px;">
+      </div>
+      <div class="col text-end">
+        <a href="https://app.senseistudio.co/" class="btn btn-primary btn-rounded px-4 py-2">Ingresar</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section id="inicio" class="hero-section d-flex align-items-center">
+  <div class="hero-overlay"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="py-5">
+          <h1 class="display-2 fw-bold text-secondary mb-4">
+            Transforma el conocimiento en
+            <span class="text-primary">experiencias de aprendizaje</span>
+          </h1>
+          <p class="fs-5 text-muted mb-4 lh-base">
+            SENSEI iA Studio utiliza inteligencia artificial para crear contenido eLearning interactivo y personalizado en minutos, sin necesidad de experiencia técnica.
+          </p>
+          <div class="d-flex flex-column flex-sm-row gap-3 mb-5">
+            <a href="https://app.senseistudio.co/" class="btn btn-primary btn-lg btn-rounded px-4 py-3">Ingresar</a>
+            <a href="https://youtu.be/AFRuARh4BWY"  target="_blank">
+                <button class="btn btn-outline-secondary btn-lg btn-rounded px-4 py-3">Ver Demo</button>    
+            </a>
+            
+          </div>
+          <div class="row text-center mt-5">
+            <div class="col-4">
+              <div class="display-4 fw-bold text-primary">5min</div>
+              <div class="small text-muted">Tiempo de creación</div>
+            </div>
+            <div class="col-4">
+              <div class="display-4 fw-bold text-primary">0%</div>
+              <div class="small text-muted">Experiencia requerida</div>
+            </div>
+            <div class="col-4">
+              <div class="display-4 fw-bold text-primary">100%</div>
+              <div class="small text-muted">Contenido personalizado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Características Principales -->
+<section id="caracteristicas" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-4 fw-bold text-secondary mb-4">Widgets Pedagógicos Inteligentes</h2>
+      <p class="fs-5 text-muted mx-auto" style="max-width: 48rem;">
+        Mini-fábricas de contenido que transforman tu conocimiento en experiencias de aprendizaje interactivas
+      </p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 card-hover">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
+              <i class="ri-video-line fs-3 text-primary"></i>
+            </div>
+            <h3 class="h5 fw-semibold text-secondary mb-3">Microvideos Interactivos</h3>
+            <p class="text-muted">Crea videos educativos cortos y atractivos con elementos interactivos que mantienen la atención del usuario.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 card-hover">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
+              <i class="ri-gamepad-line fs-3 text-primary"></i>
+            </div>
+            <h3 class="h5 fw-semibold text-secondary mb-3">Juegos Educativos</h3>
+            <p class="text-muted">Transforma conceptos complejos en juegos divertidos que facilitan el aprendizaje y la retención.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 card-hover">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
+              <i class="ri-question-line fs-3 text-primary"></i>
+            </div>
+            <h3 class="h5 fw-semibold text-secondary mb-3">Trivias Inteligentes</h3>
+            <p class="text-muted">Genera automáticamente preguntas relevantes basadas en tu contenido para evaluar el conocimiento.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 card-hover">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
+              <i class="ri-computer-line fs-3 text-primary"></i>
+            </div>
+            <h3 class="h5 fw-semibold text-secondary mb-3">Simuladores</h3>
+            <p class="text-muted">Crea entornos de práctica seguros donde los usuarios pueden aplicar sus conocimientos sin riesgos.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 card-hover">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
+              <i class="ri-clipboard-line fs-3 text-primary"></i>
+            </div>
+            <h3 class="h5 fw-semibold text-secondary mb-3">Quizzes Adaptativos</h3>
+            <p class="text-muted">Evaluaciones que se adaptan al nivel de conocimiento de cada usuario para un aprendizaje personalizado.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 card-hover">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
+              <i class="ri-smartphone-line fs-3 text-primary"></i>
+            </div>
+            <h3 class="h5 fw-semibold text-secondary mb-3">Mobile First</h3>
+            <p class="text-muted">Diseñado para dispositivos móviles, permitiendo aprendizaje en cualquier lugar y momento.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Beneficios -->
+<section id="beneficios" class="py-5 bg-white">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h2 class="display-4 fw-bold text-secondary mb-5">Democratiza el aprendizaje en tu organización</h2>
+        <div class="row g-4">
+          <div class="col-12">
+            <div class="d-flex">
+              <div class="d-flex align-items-center justify-content-center icon-bg rounded me-3 flex-shrink-0" style="width: 48px; height: 48px;">
+                <i class="ri-time-line fs-5 text-primary"></i>
+              </div>
+              <div>
+                <h3 class="h5 fw-semibold text-secondary mb-2">Creación en Minutos</h3>
+                <p class="text-muted">Transforma tu conocimiento en contenido educativo interactivo en solo 5 minutos, sin necesidad de habilidades técnicas.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="d-flex">
+              <div class="d-flex align-items-center justify-content-center icon-bg rounded me-3 flex-shrink-0" style="width: 48px; height: 48px;">
+                <i class="ri-user-heart-line fs-5 text-primary"></i>
+              </div>
+              <div>
+                <h3 class="h5 fw-semibold text-secondary mb-2">Inclusivo y Accesible</h3>
+                <p class="text-muted">Diseñado especialmente para el contexto latinoamericano, llegando a todos los niveles de la organización.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="d-flex">
+              <div class="d-flex align-items-center justify-content-center icon-bg rounded me-3 flex-shrink-0" style="width: 48px; height: 48px;">
+                <i class="ri-brain-line fs-5 text-primary"></i>
+              </div>
+              <div>
+                <h3 class="h5 fw-semibold text-secondary mb-2">IA Avanzada</h3>
+                <p class="text-muted">Utiliza inteligencia artificial para personalizar automáticamente el contenido según las necesidades de cada usuario.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="d-flex">
+              <div class="d-flex align-items-center justify-content-center icon-bg rounded me-3 flex-shrink-0" style="width: 48px; height: 48px;">
+                <i class="ri-rocket-line fs-5 text-primary"></i>
+              </div>
+              <div>
+                <h3 class="h5 fw-semibold text-secondary mb-2">Resultados Medibles</h3>
+                <p class="text-muted">Analítica avanzada para medir el impacto del aprendizaje y optimizar continuamente el contenido.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <img src="https://static.readdy.ai/image/91971dd835f8b848ead56f32d969975d/3d7ff19833186b1dbec0e9642b5ae4fd.png" alt="Dashboard de SENSEI iA Studio" class="img-fluid rounded shadow">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Casos de Uso -->
+<section id="casos" class="py-5 bg-secondary">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-4 fw-bold text-white mb-4">Casos de Uso Reales</h2>
+      <p class="fs-5 text-light mx-auto" style="max-width: 48rem;">
+        Descubre cómo SENSEI iA Studio está transformando la capacitación en diferentes industrias
+      </p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0">
+          <img src="https://readdy.ai/api/search-image?query=healthcare%20professionals%20in%20modern%20hospital%20using%20tablets%20for%20medical%20training%20with%20clean%20white%20background%20professional%20medical%20education%20environment&width=400&height=250&seq=case1&orientation=landscape" alt="Capacitación Médica" class="card-img-top" style="height: 200px; object-fit: cover;">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-semibold text-secondary mb-3">Capacitación Médica</h3>
+            <p class="text-muted mb-4">Simuladores de procedimientos médicos que permiten a los profesionales practicar sin riesgos para los pacientes.</p>
+            <div class="text-primary fw-semibold">+40% mejora en retención</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0">
+          <img src="https://readdy.ai/api/search-image?query=manufacturing%20workers%20using%20tablets%20for%20safety%20training%20in%20modern%20industrial%20facility%20with%20safety%20equipment%20and%20clean%20production%20environment&width=400&height=250&seq=case2&orientation=landscape" alt="Seguridad Industrial" class="card-img-top" style="height: 200px; object-fit: cover;">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-semibold text-secondary mb-3">Seguridad Industrial</h3>
+            <p class="text-muted mb-4">Entrenamientos interactivos sobre protocolos de seguridad que reducen significativamente los accidentes laborales.</p>
+            <div class="text-primary fw-semibold">-60% accidentes laborales</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0">
+          <img src="https://readdy.ai/api/search-image?query=customer%20service%20representatives%20in%20modern%20call%20center%20using%20computers%20for%20training%20with%20headsets%20and%20professional%20office%20environment&width=400&height=250&seq=case3&orientation=landscape" alt="Atención al Cliente" class="card-img-top" style="height: 200px; object-fit: cover;">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-semibold text-secondary mb-3">Atención al Cliente</h3>
+            <p class="text-muted mb-4">Simulaciones de conversaciones difíciles que preparan a los agentes para manejar cualquier situación.</p>
+            <div class="text-primary fw-semibold">+35% satisfacción cliente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Estadísticas -->
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-4 fw-bold text-secondary mb-4">Resultados que Hablan por Sí Solos</h2>
+      <p class="fs-5 text-muted">Empresas líderes ya están transformando su capacitación con SENSEI iA Studio</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-3 col-6 text-center">
+        <div class="display-2 fw-bold text-primary mb-2">500+</div>
+        <div class="text-muted fw-medium">Empresas Activas</div>
+      </div>
+      <div class="col-md-3 col-6 text-center">
+        <div class="display-2 fw-bold text-primary mb-2">50K+</div>
+        <div class="text-muted fw-medium">Usuarios Capacitados</div>
+      </div>
+      <div class="col-md-3 col-6 text-center">
+        <div class="display-2 fw-bold text-primary mb-2">85%</div>
+        <div class="text-muted fw-medium">Mejora en Retención</div>
+      </div>
+      <div class="col-md-3 col-6 text-center">
+        <div class="display-2 fw-bold text-primary mb-2">90%</div>
+        <div class="text-muted fw-medium">Satisfacción Cliente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form -->
+<section id="contacto" class="py-5 bg-primary">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="text-center mb-5">
+          <h2 class="display-4 fw-bold text-white mb-4">Contáctanos</h2>
+          <p class="fs-5 text-light">Estamos aquí para ayudarte a transformar tu capacitación empresarial</p>
+        </div>
+        <div class="card border-0 shadow">
+          <div class="card-body p-4 p-md-5">
+            <form id="contact-form">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="nombre" class="form-label text-muted">Nombre completo</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="empresa" class="form-label text-muted">Empresa</label>
+                  <input type="text" class="form-control" id="empresa" name="empresa" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label text-muted">Correo electrónico</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="telefono" class="form-label text-muted">Teléfono</label>
+                  <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                </div>
+                <div class="col-12">
+                  <label for="mensaje" class="form-label text-muted">Mensaje</label>
+                  <textarea class="form-control" id="mensaje" name="mensaje" rows="4" maxlength="500" required></textarea>
+                  <div class="d-flex justify-content-end mt-1">
+                    <small class="text-muted"><span id="char-count">0</span>/500 caracteres</small>
+                  </div>
+                </div>
+                <div class="col-12 text-center">
+                  <button type="submit" class="btn btn-primary btn-lg btn-rounded px-4 py-3">Enviar Mensaje</button>
+                </div>
+              </div>
+            </form>
+            
+            <!-- Success Message (hidden by default) -->
+            <div id="success-message" class="alert alert-success d-none mt-4">
+              <div class="d-flex align-items-center">
+                <i class="ri-checkbox-circle-line text-success fs-5 me-2"></i>
+                <span>¡Gracias por contactarnos! Te responderemos pronto.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-secondary text-white py-5">
+  <div class="container">
+    <div class="row g-4 mb-5">
+      <!-- Información Corporativa -->
+      <div class="col-md-6 col-lg-3">
+        <div class="mb-4">
+          <small class="text-light opacity-75">Powered by</small>
+          <a href="https://sistel.co" class="d-block mt-1">
+            <img src="https://static.readdy.ai/image/91971dd835f8b848ead56f32d969975d/d23cbb8527a6afba8a92a508121d6bf6.png" alt="SENSEI iA Studio" class="img-fluid" style="height: 32px;">
+          </a>
+        </div>
+        <p class="text-light opacity-75 small lh-base mb-4">
+          Transformando el conocimiento organizacional en experiencias de aprendizaje interactivas con IA.
+        </p>
+        <img src="https://static.readdy.ai/image/91971dd835f8b848ead56f32d969975d/749636c18a6844d2c2937f217ccc509b.png" alt="Additional Image" class="img-fluid" style="height: 96px;">
+      </div>
+      
+      <!-- Colombia -->
+      <div class="col-md-6 col-lg-3">
+        <h3 class="h5 fw-semibold mb-3">Colombia</h3>
+        <div class="small">
+          <div class="fw-medium mb-2">SISTEL S.A.S.</div>
+          <div class="d-flex align-items-center mb-2">
+            <i class="ri-phone-line text-primary me-2"></i>
+            <a href="tel:+573145001814" class="text-light text-decoration-none">(+57) 314 500 1814</a>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <i class="ri-mail-line text-primary me-2"></i>
+            <a href="mailto:contacto@sistel.co" class="text-light text-decoration-none">contacto@sistel.co</a>
+          </div>
+          <div class="text-light opacity-75">
+            Cali, Avenida 3 Norte # 19 - 110
+          </div>
+        </div>
+      </div>
+      
+      <!-- Panamá y México -->
+      <div class="col-md-6 col-lg-3">
+        <!-- Panamá -->
+        <div class="mb-4">
+          <h3 class="h5 fw-semibold mb-3">Panamá</h3>
+          <div class="small">
+            <div class="fw-medium mb-2">SISTEL Panamá S.A.</div>
+            <div class="d-flex align-items-center mb-1">
+              <i class="ri-phone-line text-primary me-2"></i>
+              <a href="tel:+50768204684" class="text-light text-decoration-none">(+507) 6820 4684</a>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+              <i class="ri-mail-line text-primary me-2"></i>
+              <a href="mailto:eduardo.carballo@sistel.co" class="text-light text-decoration-none">eduardo.carballo@sistel.co</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- México -->
+        <div>
+          <h3 class="h5 fw-semibold mb-3">México</h3>
+          <div class="small">
+            <div class="fw-medium mb-2">SISTEL MX - SODA</div>
+            <div class="d-flex align-items-center mb-1">
+              <i class="ri-phone-line text-primary me-2"></i>
+              <a href="tel:+525613111493" class="text-light text-decoration-none">(+52) 56 1311 1493</a>
+            </div>
+            <div class="d-flex align-items-center">
+              <i class="ri-mail-line text-primary me-2"></i>
+              <a href="mailto:ilan.tesone@sistel.co" class="text-light text-decoration-none">ilan.tesone@sistel.co</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Estados Unidos -->
+      <div class="col-md-6 col-lg-3">
+        <h3 class="h5 fw-semibold mb-3">USA</h3>
+        <div class="small">
+          <div class="fw-medium mb-2">SISTEL USA LLC</div>
+          <div class="d-flex align-items-center mb-2">
+            <i class="ri-phone-line text-primary me-2"></i>
+            <a href="tel:+17866683822" class="text-light text-decoration-none">(+1) 786 668 3822</a>
+          </div>
+          <div class="d-flex align-items-center">
+            <i class="ri-mail-line text-primary me-2"></i>
+            <a href="mailto:david@sistel.co" class="text-light text-decoration-none">david@sistel.co</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="border-top pt-4" style="border-color: rgba(255,255,255,0.2) !important;">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <small class="text-light opacity-75">© 2025 SISTEL. Todos los derechos reservados.</small>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <small>
+            <a href="#" class="text-light text-decoration-none opacity-75">Política de Privacidad</a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Navigation smooth scrolling
+document.addEventListener('DOMContentLoaded', function() {
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+});
+
+// CTA Buttons
+document.addEventListener('DOMContentLoaded', function() {
+  const ctaButtons = document.querySelectorAll('button');
+  ctaButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const buttonText = this.textContent.trim();
+      if (buttonText.includes('Demo') || buttonText.includes('Comenzar')) {
+        console.log('Redirigiendo a demo...');
+      } else if (buttonText.includes('Experto') || buttonText.includes('Contacto')) {
+        const contactSection = document.getElementById('contacto');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+});
+
+// Contact Form
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('contact-form');
+  const textarea = document.getElementById('mensaje');
+  const charCount = document.getElementById('char-count');
+  const successMessage = document.getElementById('success-message');
+
+  textarea.addEventListener('input', function() {
+    const count = this.value.length;
+    charCount.textContent = count;
+    if (count > 500) {
+      this.value = this.value.substring(0, 500);
+      charCount.textContent = 500;
+    }
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    console.log('Form data:', data);
+    
+    form.reset();
+    charCount.textContent = '0';
+    successMessage.classList.remove('d-none');
+    
+    setTimeout(() => {
+      successMessage.classList.add('d-none');
+    }, 5000);
+  });
+});
+</script>
+
+</body>
+</html>

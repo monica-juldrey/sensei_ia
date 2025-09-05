@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Room: La Fecha Límite</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Roboto Mono para un look tech -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Evita el scroll de la página */
+        }
+        #game-world {
+            background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1400&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+        }
+        .interactive-object {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+        }
+        .interactive-object:hover {
+            transform: scale(1.1);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal-content {
+             transition: transform 0.3s ease;
+        }
+        .keypad-btn {
+            font-family: 'Roboto Mono', monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 flex items-center justify-center min-h-screen">
+
+    <main class="bg-slate-800 text-white rounded-2xl shadow-2xl w-full max-w-6xl overflow-hidden my-4 mx-4" style="height: 95vh;">
+        <!-- Encabezado del Juego -->
+        <header class="p-4 bg-slate-900/50 backdrop-blur-sm border-b border-slate-700 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold">Proyecto "QuantumLeap"</h1>
+                <p class="text-slate-400">Misión: Entregar el proyecto antes de que se acabe el tiempo.</p>
+            </div>
+            <div class="text-right">
+                <div id="timer" class="text-4xl font-bold text-red-500" style="font-family: 'Roboto Mono', monospace;">15:00</div>
+                <div class="flex items-center justify-end space-x-2 mt-1">
+                    <span class="text-slate-300">Código de Entrega:</span>
+                    <div id="code-display" class="text-2xl font-bold tracking-widest text-cyan-400" style="font-family: 'Roboto Mono', monospace;">? ? ?</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- El Mundo del Juego -->
+        <div id="game-world">
+            <!-- Pizarra: Acertijo de Alcance -->
+            <div id="whiteboard" onclick="openModal('whiteboard-modal')" class="interactive-object pulse-animation bg-white/10 backdrop-blur-sm p-4 rounded-lg" style="top: 15%; left: 5%; width: 25%; height: 50%;">
+                 <h3 class="font-bold text-center">Pizarra de Alcance</h3>
+            </div>
+            <!-- Computadora: Acertijo de Riesgos -->
+            <div id="computer" onclick="openModal('computer-modal')" class="interactive-object pulse-animation bg-white/10 backdrop-blur-sm p-4 rounded-lg" style="top: 50%; left: 38%; width: 25%; height: 35%;">
+                <h3 class="font-bold text-center">Terminal del Proyecto</h3>
+            </div>
+            <!-- Puerta: Entrada del Código Final -->
+            <div id="door" onclick="openModal('door-modal')" class="interactive-object bg-white/10 backdrop-blur-sm p-4 rounded-lg" style="top: 10%; right: 5%; width: 15%; height: 80%;">
+                <h3 class="font-bold text-center">Puerta de Entrega</h3>
+            </div>
+        </div>
+
+        <!-- Panel de Notificaciones/Instrucciones -->
+        <div id="notification-panel" class="p-4 bg-slate-700 text-center text-amber-300 h-full">
+            Inicia la simulación. Haz clic en los objetos parpadeantes para resolver los acertijos y encontrar los 3 dígitos del código de entrega.
+        </div>
+    </main>
+
+    <!-- Modales de los Acertijos -->
+    
+    <!-- 1. Modal de la Pizarra (Alcance) -->
+    <div id="whiteboard-modal" class="modal fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden opacity-0 -translate-y-4">
+        <div class="modal-content bg-slate-100 text-slate-900 rounded-lg shadow-xl w-full max-w-2xl p-6 transform">
+            <h2 class="text-2xl font-bold mb-2">Acertijo 1: Definición del Alcance</h2>
+            <p class="mb-4">El cliente ha pedido una "app de e-commerce simple". Selecciona los 3 requerimientos que están DENTRO del alcance para un Producto Mínimo Viable (MVP). Hacerlo revelará el primer dígito.</p>
+            <div id="scope-options" class="space-y-2">
+                <label class="block p-3 rounded-lg border border-slate-300 has-[:checked]:bg-blue-200 has-[:checked]:border-blue-500 cursor-pointer"><input type="checkbox" value="1" class="mr-2"> Catálogo de productos</label>
+                <label class="block p-3 rounded-lg border border-slate-300 has-[:checked]:bg-blue-200 has-[:checked]:border-blue-500 cursor-pointer"><input type="checkbox" value="0" class="mr-2"> Integración con Realidad Aumentada</label>
+                <label class="block p-3 rounded-lg border border-slate-300 has-[:checked]:bg-blue-200 has-[:checked]:border-blue-500 cursor-pointer"><input type="checkbox" value="1" class="mr-2"> Carrito de compras</label>
+                <label class="block p-3 rounded-lg border border-slate-300 has-[:checked]:bg-blue-200 has-[:checked]:border-blue-500 cursor-pointer"><input type="checkbox" value="0" class="mr-2"> Programa de lealtad con IA</label>
+                <label class="block p-3 rounded-lg border border-slate-300 has-[:checked]:bg-blue-200 has-[:checked]:border-blue-500 cursor-pointer"><input type="checkbox" value="1" class="mr-2"> Pasarela de pago</label>
+            </div>
+            <div class="mt-6 flex justify-between items-center">
+                <button onclick="checkWhiteboardPuzzle()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700">Confirmar Alcance</button>
+                <button onclick="closeModal('whiteboard-modal')" class="bg-slate-300 hover:bg-slate-400 py-2 px-4 rounded-lg">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 2. Modal de la Computadora (Riesgos) -->
+    <div id="computer-modal" class="modal fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden opacity-0 -translate-y-4">
+        <div class="modal-content bg-slate-900 text-green-400 rounded-lg shadow-xl w-full max-w-3xl p-1 font-mono border-2 border-green-700" style="font-family: 'Roboto Mono', monospace;">
+            <div class="bg-black/50 p-4">
+                <p>&gt; INICIANDO ANÁLISIS DE RIESGOS...</p>
+                <p>&gt; PROYECTO: Lanzamiento de app móvil en 2 meses.</p>
+                <p class="text-white mt-2 mb-2">&gt; Selecciona los 2 riesgos MÁS PROBABLES para este proyecto. El sistema revelará el segundo dígito.</p>
+                <div id="risk-options" class="space-y-1 text-white">
+                     <label class="block p-2 hover:bg-green-900 cursor-pointer"><input type="checkbox" value="0" class="mr-2"> Caída de un meteorito en el data center.</label>
+                     <label class="block p-2 hover:bg-green-900 cursor-pointer"><input type="checkbox" value="1" class="mr-2"> Retrasos en la aprobación de la app por parte de las tiendas (Apple/Google).</label>
+                     <label class="block p-2 hover:bg-green-900 cursor-pointer"><input type="checkbox" value="1" class="mr-2"> El desarrollador clave renuncia a mitad del proyecto.</label>
+                     <label class="block p-2 hover:bg-green-900 cursor-pointer"><input type="checkbox" value="0" class="mr-2"> La competencia lanza un producto idéntico el mismo día.</label>
+                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <button onclick="checkComputerPuzzle()" class="bg-green-600 text-slate-900 font-bold py-1 px-4">EJECUTAR_ANALISIS</button>
+                    <button onclick="closeModal('computer-modal')" class="text-green-500 hover:text-white">CERRAR_TERMINAL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Modal de la Puerta (Código Final) -->
+    <div id="door-modal" class="modal fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden opacity-0 -translate-y-4">
+        <div class="modal-content bg-gray-300 rounded-lg shadow-xl w-full max-w-xs p-6">
+            <h2 class="text-xl font-bold text-slate-800 text-center mb-4">Panel de Entrega del Proyecto</h2>
+            <div id="keypad-display" class="bg-slate-800 text-cyan-300 text-4xl text-center rounded-md py-2 mb-4 h-16" style="font-family: 'Roboto Mono', monospace;"></div>
+            <div class="grid grid-cols-3 gap-3">
+                <button onclick="appendToKeypad('1')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">1</button>
+                <button onclick="appendToKeypad('2')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">2</button>
+                <button onclick="appendToKeypad('3')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">3</button>
+                <button onclick="appendToKeypad('4')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">4</button>
+                <button onclick="appendToKeypad('5')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">5</button>
+                <button onclick="appendToKeypad('6')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">6</button>
+                <button onclick="appendToKeypad('7')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">7</button>
+                <button onclick="appendToKeypad('8')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">8</button>
+                <button onclick="appendToKeypad('9')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">9</button>
+                <button onclick="clearKeypad()" class="keypad-btn bg-yellow-500 text-white text-2xl font-bold p-4 rounded-md shadow">C</button>
+                <button onclick="appendToKeypad('0')" class="keypad-btn bg-white text-slate-800 text-2xl font-bold p-4 rounded-md shadow hover:bg-gray-100">0</button>
+                <button onclick="checkFinalCode()" class="keypad-btn bg-green-500 text-white text-2xl font-bold p-4 rounded-md shadow">OK</button>
+            </div>
+             <button onclick="closeModal('door-modal')" class="w-full mt-4 bg-slate-400 text-slate-800 py-2 px-4 rounded-lg">Cancelar</button>
+        </div>
+    </div>
+    
+    <!-- Modal de Victoria/Derrota -->
+    <div id="endgame-modal" class="modal fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden opacity-0">
+        <div id="endgame-content" class="modal-content text-center bg-white text-slate-900 rounded-lg shadow-xl w-full max-w-md p-8 transform">
+            <h2 id="endgame-title" class="text-3xl font-bold mb-4"></h2>
+            <p id="endgame-message" class="text-lg mb-6"></p>
+            <button onclick="startGame()" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 w-full">Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURACIÓN Y ESTADO DEL JUEGO ---
+        const CORRECT_CODE = ['7', '3', '5']; // Respuestas a los acertijos. El 3er dígito es un señuelo para que lo encuentren.
+        let gameState = {};
+
+        // --- REFERENCIAS AL DOM ---
+        const timerEl = document.getElementById('timer');
+        const codeDisplayEl = document.getElementById('code-display');
+        const notificationPanel = document.getElementById('notification-panel');
+        const keypadDisplay = document.getElementById('keypad-display');
+
+        function startGame() {
+            // Reiniciar estado
+            gameState = {
+                timeLeft: 15 * 60, // 15 minutos
+                timerInterval: null,
+                code: ['?', '?', '?'],
+                puzzles: { whiteboard: false, computer: false },
+                isGameOver: false
+            };
+            
+            // Reiniciar UI
+            document.querySelectorAll('.modal').forEach(m => closeModal(m.id));
+            document.getElementById('whiteboard').classList.add('pulse-animation');
+            document.getElementById('computer').classList.add('pulse-animation');
+            updateCodeDisplay();
+            clearKeypad();
+            notificationPanel.textContent = 'Simulación iniciada. Resuelve los acertijos para escapar.';
+
+            // Iniciar temporizador
+            gameState.timerInterval = setInterval(updateTimer, 1000);
+            updateTimer();
+        }
+
+        function updateTimer() {
+            if (gameState.isGameOver) return;
+            gameState.timeLeft--;
+            const minutes = Math.floor(gameState.timeLeft / 60);
+            const seconds = gameState.timeLeft % 60;
+            timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (gameState.timeLeft <= 0) {
+                endGame(false);
+            }
+        }
+
+        function updateCodeDisplay() {
+            codeDisplayEl.textContent = gameState.code.join(' ');
+        }
+        
+        function updateNotification(message, isSuccess = true) {
+            notificationPanel.textContent = message;
+            notificationPanel.className = `p-4 text-center h-full ${isSuccess ? 'text-green-300 bg-green-900/50' : 'text-red-300 bg-red-900/50'}`;
+        }
+
+        // --- LÓGICA DE MODALES ---
+        function openModal(modalId) {
+            if(gameState.isGameOver) return;
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0', '-translate-y-4');
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('opacity-0', '-translate-y-4');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // --- LÓGICA DE ACERTIJOS ---
+        function checkWhiteboardPuzzle() {
+            if (gameState.puzzles.whiteboard) return;
+            const options = document.querySelectorAll('#scope-options input[type="checkbox"]');
+            let correctCount = 0;
+            let totalSelected = 0;
+            options.forEach(opt => {
+                if (opt.checked) {
+                    totalSelected++;
+                    if (opt.value === '1') {
+                        correctCount++;
+                    }
+                }
+            });
+            
+            if (correctCount === 3 && totalSelected === 3) {
+                gameState.puzzles.whiteboard = true;
+                gameState.code[0] = CORRECT_CODE[0];
+                updateCodeDisplay();
+                updateNotification('¡Correcto! Alcance definido. Has encontrado el primer dígito: 7.', true);
+                document.getElementById('whiteboard').classList.remove('pulse-animation');
+                closeModal('whiteboard-modal');
+            } else {
+                updateNotification('Alcance incorrecto. Revisa las prioridades de un MVP.', false);
+            }
+        }
+
+        function checkComputerPuzzle() {
+            if(gameState.puzzles.computer) return;
+            const options = document.querySelectorAll('#risk-options input[type="checkbox"]');
+            let correctCount = 0;
+            let totalSelected = 0;
+            options.forEach(opt => {
+                if (opt.checked) {
+                    totalSelected++;
+                    if (opt.value === '1') correctCount++;
+                }
+            });
+
+            if (correctCount === 2 && totalSelected === 2) {
+                gameState.puzzles.computer = true;
+                gameState.code[1] = CORRECT_CODE[1];
+                updateCodeDisplay();
+                updateNotification('Análisis de riesgos exitoso. El segundo dígito es 3. Solo falta un dígito oculto en la sala.', true);
+                document.getElementById('computer').classList.remove('pulse-animation');
+                // Revelar el tercer dígito "oculto" (en este caso lo damos como recompensa del segundo puzzle)
+                gameState.code[2] = CORRECT_CODE[2];
+                updateCodeDisplay();
+                closeModal('computer-modal');
+            } else {
+                 updateNotification('Riesgos mal identificados. Considera los factores más comunes y probables.', false);
+            }
+        }
+
+        // --- LÓGICA DEL TECLADO FINAL ---
+        function appendToKeypad(num) {
+            if (keypadDisplay.textContent.length < 3) {
+                keypadDisplay.textContent += num;
+            }
+        }
+
+        function clearKeypad() {
+            keypadDisplay.textContent = '';
+        }
+
+        function checkFinalCode() {
+            if (keypadDisplay.textContent === CORRECT_CODE.join('')) {
+                endGame(true);
+            } else {
+                updateNotification('Código de entrega incorrecto. Acceso denegado.', false);
+                keypadDisplay.classList.add('animate-bounce');
+                setTimeout(() => { 
+                    keypadDisplay.classList.remove('animate-bounce');
+                    clearKeypad();
+                }, 500);
+            }
+        }
+
+        // --- FIN DEL JUEGO ---
+        function endGame(isVictory) {
+            gameState.isGameOver = true;
+            clearInterval(gameState.timerInterval);
+            timerEl.classList.remove("text-red-500");
+
+            const modal = document.getElementById('endgame-modal');
+            const title = document.getElementById('endgame-title');
+            const message = document.getElementById('endgame-message');
+            
+            if (isVictory) {
+                title.textContent = "¡Proyecto Entregado!";
+                title.className = "text-3xl font-bold mb-4 text-green-600";
+                message.textContent = `¡Felicidades! Resolviste todos los desafíos y entregaste el proyecto a tiempo. Demostraste excelentes habilidades en gestión de alcance y riesgos.`;
+            } else {
+                title.textContent = "¡Fecha Límite Fallida!";
+                title.className = "text-3xl font-bold mb-4 text-red-600";
+                message.textContent = `Se acabó el tiempo. El proyecto no se entregó y los stakeholders no están contentos. Analiza los acertijos para mejorar tus habilidades de gestión.`;
+            }
+            openModal('endgame-modal');
+        }
+
+        window.onload = startGame;
+    </script>
+</body>
+</html>

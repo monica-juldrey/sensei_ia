@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recorrido de Seguridad</title>
+    <!-- Tailwind CSS para un diseño moderno y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Animación de pulso para los puntos calientes (hotspots) */
+        .hotspot-pulse {
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 1); /* red-500 */
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+        /* Estilo para los hotspots ya encontrados */
+        .hotspot-found {
+            animation: none;
+            background-color: rgba(34, 197, 94, 0.8); /* green-500 con opacidad */
+            border-color: #f0fdf4; /* green-50 */
+        }
+    </style>
+</head>
+<body class="bg-slate-200 text-slate-900 flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-5xl overflow-hidden">
+        <!-- Encabezado y Controles -->
+        <header class="p-4 border-b border-slate-200">
+            <h1 class="text-2xl font-bold text-slate-800">Recorrido de Seguridad: Taller</h1>
+            <p class="text-slate-600">Tu misión: Identifica todos los riesgos de Seguridad y Salud en el Trabajo (SST) en la imagen. Haz clic en las áreas que consideres peligrosas.</p>
+            <div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-sky-100 text-sky-800 p-2 rounded-lg">
+                    <div class="font-bold text-xl" id="found-count">0</div>
+                    <div class="text-sm">Riesgos Encontrados</div>
+                </div>
+                <div class="bg-slate-100 text-slate-800 p-2 rounded-lg">
+                    <div class="font-bold text-xl" id="total-count">0</div>
+                    <div class="text-sm">Riesgos Totales</div>
+                </div>
+                <div class="bg-amber-100 text-amber-800 p-2 rounded-lg">
+                    <div class="font-bold text-xl" id="mistakes-count">0</div>
+                    <div class="text-sm">Intentos Fallidos</div>
+                </div>
+                <button onclick="initializeGame()" class="bg-slate-600 text-white font-bold rounded-lg hover:bg-slate-700 transition-colors">
+                    Reiniciar
+                </button>
+            </div>
+        </header>
+
+        <!-- Área de la Simulación -->
+        <div id="simulation-area" class="relative bg-slate-100" onclick="handleMistakeClick()">
+            <img id="scene-image" src="https://placehold.co/1200x800/e2e8f0/475569?text=Entorno+de+Trabajo" alt="Entorno de trabajo virtual" class="w-full h-auto block">
+            <!-- Los hotspots se insertarán aquí con JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal para mostrar información del riesgo -->
+    <div id="risk-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 text-center transform transition-all scale-95 opacity-0" id="modal-content">
+            <h2 id="modal-title" class="text-2xl font-bold text-red-600 mb-2"></h2>
+            <p id="modal-description" class="text-slate-700 mb-4"></p>
+            <div class="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-md text-left">
+                <h3 class="font-bold">Acción Correctiva</h3>
+                <p id="modal-solution"></p>
+            </div>
+            <button onclick="closeModal()" class="mt-6 bg-slate-800 text-white font-bold py-2 px-6 rounded-lg hover:bg-slate-900 transition-colors w-full">Entendido</button>
+        </div>
+    </div>
+    
+    <!-- Modal de Finalización -->
+    <div id="completion-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+         <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-8 text-center transform transition-all scale-95 opacity-0" id="completion-content">
+            <h2 class="text-3xl font-bold text-green-600 mb-4">¡Felicitaciones!</h2>
+            <p class="text-lg text-slate-700 mb-6">Has identificado todos los riesgos de seguridad en el área. Tu atención al detalle es clave para mantener un entorno de trabajo seguro.</p>
+            <button onclick="initializeGame()" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-700 transition-colors w-full">Realizar otro recorrido</button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- CONFIGURACIÓN DEL ESCENARIO ---
+        // Este es el objeto que una IA podría generar o modificar.
+        // Define la imagen de fondo y la lista de riesgos con sus propiedades.
+        const sceneData = {
+            imageUrl: 'https://images.unsplash.com/photo-1572297870422-79471e860f03?q=80&w=1200&auto=format&fit=crop',
+            risks: [
+                {
+                    id: 1,
+                    title: 'Líquido Derramado',
+                    description: 'Un derrame de aceite en el suelo crea un grave peligro de resbalones y caídas.',
+                    solution: 'Señalizar el área inmediatamente y utilizar el kit de control de derrames para limpiar la superficie.',
+                    position: { top: '85%', left: '55%' },
+                    found: false
+                },
+                {
+                    id: 2,
+                    title: 'Caja Obstruyendo Pasillo',
+                    description: 'Una caja bloquea parcialmente una ruta de tránsito, lo que puede causar tropiezos y dificultar la evacuación en caso de emergencia.',
+                    solution: 'Las cajas y materiales deben almacenarse en las áreas designadas, manteniendo los pasillos despejados.',
+                    position: { top: '70%', left: '25%' },
+                    found: false
+                },
+                {
+                    id: 3,
+                    title: 'Extintor Bloqueado',
+                    description: 'El acceso al extintor de incendios está obstruido. En una emergencia, cada segundo cuenta y no poder acceder a él puede ser catastrófico.',
+                    solution: 'Mantener un área despejada de al menos 1 metro alrededor de todo el equipo de seguridad contra incendios.',
+                    position: { top: '50%', left: '8%' },
+                    found: false
+                },
+                {
+                    id: 4,
+                    title: 'Cableado Eléctrico Expuesto',
+                    description: 'Una caja de conexiones eléctricas está abierta con cables expuestos, presentando un riesgo de electrocución.',
+                    solution: 'Todo el cableado eléctrico debe estar debidamente cubierto y protegido. Reportar a mantenimiento de inmediato.',
+                    position: { top: '45%', left: '92%' },
+                    found: false
+                },
+                 {
+                    id: 5,
+                    title: 'Falta de Equipo de Protección Personal (EPP)',
+                    description: 'Un operario está utilizando una esmeriladora sin usar gafas de seguridad, exponiéndose a lesiones oculares graves por partículas proyectadas.',
+                    solution: 'El uso del EPP adecuado (gafas, guantes, etc.) es obligatorio para la tarea que se está realizando.',
+                    position: { top: '58%', left: '72%' },
+                    found: false
+                }
+            ]
+        };
+
+        // --- LÓGICA DE LA SIMULACIÓN ---
+        let risksFound = 0;
+        let mistakes = 0;
+
+        // Elementos del DOM
+        const simulationArea = document.getElementById('simulation-area');
+        const sceneImage = document.getElementById('scene-image');
+        const riskModal = document.getElementById('risk-modal');
+        const modalContent = document.getElementById('modal-content');
+        const completionModal = document.getElementById('completion-modal');
+        const completionContent = document.getElementById('completion-content');
+
+        // Función principal para iniciar o reiniciar el juego
+        function initializeGame() {
+            risksFound = 0;
+            mistakes = 0;
+            
+            // Ocultar modales si están abiertos
+            riskModal.classList.add('hidden');
+            completionModal.classList.add('hidden');
+            
+            // Cargar imagen de la escena
+            sceneImage.src = sceneData.imageUrl;
+
+            // Limpiar hotspots antiguos
+            simulationArea.querySelectorAll('.hotspot').forEach(hp => hp.remove());
+            
+            // Crear y posicionar nuevos hotspots
+            sceneData.risks.forEach(risk => {
+                risk.found = false; // Resetear estado
+                const hotspot = document.createElement('div');
+                hotspot.className = 'hotspot hotspot-pulse absolute w-8 h-8 md:w-10 md:h-10 border-4 border-white bg-red-500 bg-opacity-75 transform -translate-x-1/2 -translate-y-1/2';
+                hotspot.style.top = risk.position.top;
+                hotspot.style.left = risk.position.left;
+                hotspot.dataset.riskId = risk.id;
+                
+                hotspot.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Evita que el clic se propague al div de fondo
+                    handleHotspotClick(risk.id);
+                });
+                simulationArea.appendChild(hotspot);
+            });
+
+            updateUI();
+        }
+
+        // Maneja el clic en un hotspot
+        function handleHotspotClick(riskId) {
+            const risk = sceneData.risks.find(r => r.id === riskId);
+            if (!risk || risk.found) return; // Si no existe o ya fue encontrado, no hacer nada
+
+            risk.found = true;
+            risksFound++;
+            
+            const hotspotEl = simulationArea.querySelector(`[data-risk-id='${riskId}']`);
+            hotspotEl.classList.remove('hotspot-pulse', 'bg-red-500');
+            hotspotEl.classList.add('hotspot-found');
+
+            showRiskInfo(risk);
+            updateUI();
+            checkCompletion();
+        }
+
+        // Maneja un clic en un área incorrecta
+        function handleMistakeClick() {
+            mistakes++;
+            updateUI();
+            // Efecto visual de error
+            simulationArea.style.transition = 'outline 0.1s ease-in-out';
+            simulationArea.style.outline = '4px solid #ef4444'; // red-500
+            setTimeout(() => {
+                simulationArea.style.outline = 'none';
+            }, 200);
+        }
+
+        // Muestra el modal con la información del riesgo
+        function showRiskInfo(risk) {
+            document.getElementById('modal-title').textContent = risk.title;
+            document.getElementById('modal-description').textContent = risk.description;
+            document.getElementById('modal-solution').textContent = risk.solution;
+            riskModal.classList.remove('hidden');
+            // Animar la aparición
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        }
+
+        // Cierra el modal de información
+        function closeModal() {
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                riskModal.classList.add('hidden');
+            }, 200);
+        }
+        
+        // Comprueba si se han encontrado todos los riesgos
+        function checkCompletion() {
+            if (risksFound === sceneData.risks.length) {
+                 setTimeout(() => {
+                    completionModal.classList.remove('hidden');
+                    setTimeout(() => {
+                         completionContent.classList.remove('scale-95', 'opacity-0');
+                    }, 10);
+                }, 500);
+            }
+        }
+        
+        // Actualiza los contadores en la interfaz
+        function updateUI() {
+            document.getElementById('found-count').textContent = risksFound;
+            document.getElementById('total-count').textContent = sceneData.risks.length;
+            document.getElementById('mistakes-count').textContent = mistakes;
+        }
+
+        // Iniciar el juego al cargar la página
+        window.onload = initializeGame;
+
+    </script>
+</body>
+</html>
