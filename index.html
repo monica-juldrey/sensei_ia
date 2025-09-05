@@ -12,97 +12,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 <!-- Remix Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<!-- estilos-->
+<link rel="stylesheet" href="css/main.css">
+<!-- font-aweson-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style>
-    :root {
-    --bs-primary: #0A2463;
-    --bs-secondary: #1a1c22;
-    }
-
-    .btn-primary {
-    --bs-btn-bg: var(--bs-primary);
-    --bs-btn-border-color: var(--bs-primary);
-    --bs-btn-hover-bg: #063052;
-    --bs-btn-hover-border-color: #063052;
-    }
-
-    .btn-outline-secondary {
-    --bs-btn-color: var(--bs-secondary);
-    --bs-btn-border-color: var(--bs-secondary);
-    --bs-btn-hover-bg: var(--bs-secondary);
-    --bs-btn-hover-border-color: var(--bs-secondary);
-    }
-
-    .text-primary {
-    color: var(--bs-primary) !important;
-    }
-
-    .text-secondary {
-    color: var(--bs-secondary) !important;
-    }
-
-    .bg-primary {
-    background-color: var(--bs-primary) !important;
-    }
-
-    .bg-secondary {
-    background-color: var(--bs-secondary) !important;
-    }
-
-    .hero-section {
-    background-image: url('https://static.readdy.ai/image/91971dd835f8b848ead56f32d969975d/d3052d78479a99a20d12547f0e31b5a5.png');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    position: relative;
-    }
-
-    .hero-overlay {
-    background-color: rgba(255, 255, 255, 0.7);
-    position: absolute;
-    inset: 0;
-    }
-
-    .icon-bg {
-    background-color: rgba(10, 36, 99, 0.1);
-    }
-
-    .card-hover {
-    transition: box-shadow 0.2s ease;
-    }
-
-    .card-hover:hover {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-    }
-
-    .btn-rounded {
-    border-radius: 8px;
-    }
-
-    .form-control:focus {
-    border-color: var(--bs-primary);
-    box-shadow: 0 0 0 0.25rem rgba(10, 36, 99, 0.25);
-    }
-
-    #char-count {
-    color: #6c757d;
-    }
+    
 </style>
 </head>
 
 <body>
 <!-- Header -->
 <header class="bg-white shadow-sm border-bottom">
-  <div class="container">
-    <div class="row align-items-center py-2">
-      <div class="col-auto">
-        <img src="https://static.readdy.ai/image/91971dd835f8b848ead56f32d969975d/f0928672ccdd1eda957b155defc5fa02.png" alt="SENSEI iA Studio" class="img-fluid" style="height: 64px;">
-      </div>
-      <div class="col text-end">
-        <a href="https://app.senseistudio.co/" class="btn btn-primary btn-rounded px-4 py-2">Ingresar</a>
-      </div>
+    <div class="container">
+        <div class="row align-items-center py-2">
+            <div class="col-auto">
+                <img src="imagenes/sensei_ia_n.png" alt="SENSEI iA Studio" class="img-fluid" style="height: 64px;">
+            </div>
+            <div class="col text-end">
+                <a href="#contacto" class="btn btn-rounded btn-contactanos px-4 py-2">Contáctanos</a>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 
 <!-- Hero Section -->
@@ -110,34 +42,42 @@
   <div class="hero-overlay"></div>
   <div class="container position-relative">
     <div class="row align-items-center g-5">
-      <div class="col-lg-6">
+      <div class="col-lg-9">
         <div class="py-5">
-          <h1 class="display-2 fw-bold text-secondary mb-4">
-            Transforma el conocimiento en
-            <span class="text-primary">experiencias de aprendizaje</span>
+          <h1 class="display-2 fw-bold text-white mb-4">
+            Transforma el
+            <p class="text-white">conocimiento en</p>
+            <p class="text-white">experiencias de</p>
+            <p class="text-white">aprendizaje</p>
           </h1>
-          <p class="fs-5 text-muted mb-4 lh-base">
-            SENSEI iA Studio utiliza inteligencia artificial para crear contenido eLearning interactivo y personalizado en minutos, sin necesidad de experiencia técnica.
+          <p class="text-white lh-base texto-descr mb-0">
+            SENSEI iA Studio utiliza inteligencia artificial para crear
+          </p>
+          <p class="text-white lh-base texto-descr mb-0">
+            contenido eLearning interactivo y personalizado en minutos,
+          </p>
+          <p class="text-white lh-base texto-descr mb-4">
+            sin necesidad de experiencia técnica.
           </p>
           <div class="d-flex flex-column flex-sm-row gap-3 mb-5">
-            <a href="https://app.senseistudio.co/" class="btn btn-primary btn-lg btn-rounded px-4 py-3">Ingresar</a>
-            <a href="https://youtu.be/AFRuARh4BWY"  target="_blank">
-                <button class="btn btn-outline-secondary btn-lg btn-rounded px-4 py-3">Ver Demo</button>    
+            <a href="https://app.senseistudio.co/" class="btn btn-empieza px-4 py-3">Empieza tu prueba</a>
+            <a href="https://youtu.be/AFRuARh4BWY" class="btn btn-demo px-4 py-3 d-flex justify-content-evenly align-items-center">
+                <i class="fa fa-play-circle tamano-icono" aria-hidden="true"></i>
+                Ver demo
             </a>
-            
           </div>
           <div class="row text-center mt-5">
             <div class="col-4">
-              <div class="display-4 fw-bold text-primary">5min</div>
-              <div class="small text-muted">Tiempo de creación</div>
+              <div class="display-4 fw-bold text-white">5min</div>
+              <div class="txt-indicador text-white">Tiempo de creación</div>
             </div>
             <div class="col-4">
-              <div class="display-4 fw-bold text-primary">0%</div>
-              <div class="small text-muted">Experiencia requerida</div>
+              <div class="display-4 fw-bold text-white">0%</div>
+              <div class="txt-indicador text-white">Experiencia requerida</div>
             </div>
             <div class="col-4">
-              <div class="display-4 fw-bold text-primary">100%</div>
-              <div class="small text-muted">Contenido personalizado</div>
+              <div class="display-4 fw-bold text-white">100%</div>
+              <div class="txt-indicador text-white">Contenido personalizado</div>
             </div>
           </div>
         </div>
@@ -147,78 +87,78 @@
 </section>
 
 <!-- Características Principales -->
-<section id="caracteristicas" class="py-5 bg-light">
+<section id="caracteristicas" class="py-5">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="display-4 fw-bold text-secondary mb-4">Widgets Pedagógicos Inteligentes</h2>
-      <p class="fs-5 text-muted mx-auto" style="max-width: 48rem;">
+      <h2 class="display-4 fw-600 text-secondary mb-4">Widgets Pedagógicos Inteligentes</h2>
+      <p class="fs-5 mx-auto" style="max-width: 48rem;">
         Mini-fábricas de contenido que transforman tu conocimiento en experiencias de aprendizaje interactivas
       </p>
     </div>
     <div class="row g-4">
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 card-hover">
+        <div class="card h-100 border-0 card-wg card-hover">
           <div class="card-body p-4">
             <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
-              <i class="ri-video-line fs-3 text-primary"></i>
+              <i class="ri-video-line fs-3 text-white"></i>
             </div>
-            <h3 class="h5 fw-semibold text-secondary mb-3">Microvideos Interactivos</h3>
-            <p class="text-muted">Crea videos educativos cortos y atractivos con elementos interactivos que mantienen la atención del usuario.</p>
+            <h3 class="h5 fw-bold text-secondary mb-3">Microvideos Interactivos</h3>
+            <p class="">Crea videos educativos cortos y atractivos con elementos interactivos que mantienen la atención del usuario.</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 card-hover">
+        <div class="card h-100 border-0 card-hover card-wg">
           <div class="card-body p-4">
             <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
-              <i class="ri-gamepad-line fs-3 text-primary"></i>
+              <i class="ri-gamepad-line fs-3 text-white"></i>
             </div>
-            <h3 class="h5 fw-semibold text-secondary mb-3">Juegos Educativos</h3>
-            <p class="text-muted">Transforma conceptos complejos en juegos divertidos que facilitan el aprendizaje y la retención.</p>
+            <h3 class="h5 fw-bold text-secondary mb-3">Juegos Educativos</h3>
+            <p class="">Transforma conceptos complejos en juegos divertidos que facilitan el aprendizaje y la retención.</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 card-hover">
+        <div class="card h-100 border-0 card-hover card-wg">
           <div class="card-body p-4">
             <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
-              <i class="ri-question-line fs-3 text-primary"></i>
+              <i class="ri-question-line fs-3 text-white"></i>
             </div>
-            <h3 class="h5 fw-semibold text-secondary mb-3">Trivias Inteligentes</h3>
-            <p class="text-muted">Genera automáticamente preguntas relevantes basadas en tu contenido para evaluar el conocimiento.</p>
+            <h3 class="h5 fw-bold text-secondary mb-3">Trivias Inteligentes</h3>
+            <p class="">Genera automáticamente preguntas relevantes basadas en tu contenido para evaluar el conocimiento.</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 card-hover">
+        <div class="card h-100 border-0 card-hover card-wg">
           <div class="card-body p-4">
             <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
-              <i class="ri-computer-line fs-3 text-primary"></i>
+              <i class="ri-computer-line fs-3 text-white"></i>
             </div>
-            <h3 class="h5 fw-semibold text-secondary mb-3">Simuladores</h3>
-            <p class="text-muted">Crea entornos de práctica seguros donde los usuarios pueden aplicar sus conocimientos sin riesgos.</p>
+            <h3 class="h5 fw-bold text-secondary mb-3">Simuladores</h3>
+            <p class="">Crea entornos de práctica seguros donde los usuarios pueden aplicar sus conocimientos sin riesgos.</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 card-hover">
+        <div class="card h-100 border-0 card-hover card-wg">
           <div class="card-body p-4">
             <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
-              <i class="ri-clipboard-line fs-3 text-primary"></i>
+              <i class="ri-clipboard-line fs-3 text-white"></i>
             </div>
-            <h3 class="h5 fw-semibold text-secondary mb-3">Quizzes Adaptativos</h3>
-            <p class="text-muted">Evaluaciones que se adaptan al nivel de conocimiento de cada usuario para un aprendizaje personalizado.</p>
+            <h3 class="h5 fw-bold text-secondary mb-3">Quizzes Adaptativos</h3>
+            <p class="">Evaluaciones que se adaptan al nivel de conocimiento de cada usuario para un aprendizaje personalizado.</p>
           </div>
         </div>
       </div>
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 card-hover">
+        <div class="card h-100 border-0 card-hover card-wg">
           <div class="card-body p-4">
             <div class="d-flex align-items-center justify-content-center icon-bg rounded p-3 mb-4" style="width: 64px; height: 64px;">
-              <i class="ri-smartphone-line fs-3 text-primary"></i>
+              <i class="ri-smartphone-line fs-3 text-white"></i>
             </div>
-            <h3 class="h5 fw-semibold text-secondary mb-3">Mobile First</h3>
-            <p class="text-muted">Diseñado para dispositivos móviles, permitiendo aprendizaje en cualquier lugar y momento.</p>
+            <h3 class="h5 fw-bold text-secondary mb-3">Mobile First</h3>
+            <p class="">Diseñado para dispositivos móviles, permitiendo aprendizaje en cualquier lugar y momento.</p>
           </div>
         </div>
       </div>
@@ -236,7 +176,7 @@
           <div class="col-12">
             <div class="d-flex">
               <div class="d-flex align-items-center justify-content-center icon-bg rounded me-3 flex-shrink-0" style="width: 48px; height: 48px;">
-                <i class="ri-time-line fs-5 text-primary"></i>
+                <i class="ri-time-line fs-5 text-white"></i>
               </div>
               <div>
                 <h3 class="h5 fw-semibold text-secondary mb-2">Creación en Minutos</h3>
@@ -247,7 +187,7 @@
           <div class="col-12">
             <div class="d-flex">
               <div class="d-flex align-items-center justify-content-center icon-bg rounded me-3 flex-shrink-0" style="width: 48px; height: 48px;">
-                <i class="ri-user-heart-line fs-5 text-primary"></i>
+                <i class="ri-user-heart-line fs-5 text-white"></i>
               </div>
               <div>
                 <h3 class="h5 fw-semibold text-secondary mb-2">Inclusivo y Accesible</h3>
@@ -258,7 +198,7 @@
           <div class="col-12">
             <div class="d-flex">
               <div class="d-flex align-items-center justify-content-center icon-bg rounded me-3 flex-shrink-0" style="width: 48px; height: 48px;">
-                <i class="ri-brain-line fs-5 text-primary"></i>
+                <i class="ri-brain-line fs-5 text-white"></i>
               </div>
               <div>
                 <h3 class="h5 fw-semibold text-secondary mb-2">IA Avanzada</h3>
@@ -269,7 +209,7 @@
           <div class="col-12">
             <div class="d-flex">
               <div class="d-flex align-items-center justify-content-center icon-bg rounded me-3 flex-shrink-0" style="width: 48px; height: 48px;">
-                <i class="ri-rocket-line fs-5 text-primary"></i>
+                <i class="ri-rocket-line fs-5 text-white"></i>
               </div>
               <div>
                 <h3 class="h5 fw-semibold text-secondary mb-2">Resultados Medibles</h3>
@@ -359,13 +299,13 @@
 </section>
 
 <!-- Contact Form -->
-<section id="contacto" class="py-5 bg-primary">
+<section id="contacto" class="py-5 bg-gris-claro">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="text-center mb-5">
-          <h2 class="display-4 fw-bold text-white mb-4">Contáctanos</h2>
-          <p class="fs-5 text-light">Estamos aquí para ayudarte a transformar tu capacitación empresarial</p>
+          <h2 class="display-3 fw-bold text-secondary mb-4 txt-contactanos">Contáctanos</h2>
+          <p class="fs-4 text-secondary">Estamos aquí para ayudarte a transformar tu capacitación empresarial</p>
         </div>
         <div class="card border-0 shadow">
           <div class="card-body p-4 p-md-5">
@@ -438,11 +378,11 @@
         <div class="small">
           <div class="fw-medium mb-2">SISTEL S.A.S.</div>
           <div class="d-flex align-items-center mb-2">
-            <i class="ri-phone-line text-primary me-2"></i>
+            <i class="ri-phone-line text-white me-2"></i>
             <a href="tel:+573145001814" class="text-light text-decoration-none">(+57) 314 500 1814</a>
           </div>
           <div class="d-flex align-items-center mb-2">
-            <i class="ri-mail-line text-primary me-2"></i>
+            <i class="ri-mail-line text-white me-2"></i>
             <a href="mailto:contacto@sistel.co" class="text-light text-decoration-none">contacto@sistel.co</a>
           </div>
           <div class="text-light opacity-75">
@@ -459,11 +399,11 @@
           <div class="small">
             <div class="fw-medium mb-2">SISTEL Panamá S.A.</div>
             <div class="d-flex align-items-center mb-1">
-              <i class="ri-phone-line text-primary me-2"></i>
+              <i class="ri-phone-line text-white me-2"></i>
               <a href="tel:+50768204684" class="text-light text-decoration-none">(+507) 6820 4684</a>
             </div>
             <div class="d-flex align-items-center mb-2">
-              <i class="ri-mail-line text-primary me-2"></i>
+              <i class="ri-mail-line text-white me-2"></i>
               <a href="mailto:eduardo.carballo@sistel.co" class="text-light text-decoration-none">eduardo.carballo@sistel.co</a>
             </div>
           </div>
@@ -475,11 +415,11 @@
           <div class="small">
             <div class="fw-medium mb-2">SISTEL MX - SODA</div>
             <div class="d-flex align-items-center mb-1">
-              <i class="ri-phone-line text-primary me-2"></i>
+              <i class="ri-phone-line text-white me-2"></i>
               <a href="tel:+525613111493" class="text-light text-decoration-none">(+52) 56 1311 1493</a>
             </div>
             <div class="d-flex align-items-center">
-              <i class="ri-mail-line text-primary me-2"></i>
+              <i class="ri-mail-line text-white me-2"></i>
               <a href="mailto:ilan.tesone@sistel.co" class="text-light text-decoration-none">ilan.tesone@sistel.co</a>
             </div>
           </div>
@@ -492,11 +432,11 @@
         <div class="small">
           <div class="fw-medium mb-2">SISTEL USA LLC</div>
           <div class="d-flex align-items-center mb-2">
-            <i class="ri-phone-line text-primary me-2"></i>
+            <i class="ri-phone-line text-white me-2"></i>
             <a href="tel:+17866683822" class="text-light text-decoration-none">(+1) 786 668 3822</a>
           </div>
           <div class="d-flex align-items-center">
-            <i class="ri-mail-line text-primary me-2"></i>
+            <i class="ri-mail-line text-white me-2"></i>
             <a href="mailto:david@sistel.co" class="text-light text-decoration-none">david@sistel.co</a>
           </div>
         </div>
